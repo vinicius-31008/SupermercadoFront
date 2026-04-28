@@ -1,0 +1,29 @@
+{
+  "produtos": [
+    { "id": 1,  "nome": "Amaciante 900ml",    "preco": 15.90, "precoAntigo": 18.90, "imagem": "amaciante.jpg",  "categoria": "Limpeza" },
+    { "id": 2,  "nome": "Óleo de Soja 900ml", "preco": 7.90,  "precoAntigo": 8.90,  "imagem": "oleo.jpeg",      "categoria": "Mercearia" },
+    { "id": 3,  "nome": "Macarrão 500g",      "preco": 6.90,  "precoAntigo": 7.90,  "imagem": "macarrao.jpg",   "categoria": "Mercearia" },
+    { "id": 4,  "nome": "Leite Integral",     "preco": 4.90,  "precoAntigo": 5.90,  "imagem": "leite.jpg",      "categoria": "Laticínios" },
+    { "id": 5,  "nome": "Banana Kg",          "preco": 4.90,  "precoAntigo": 5.90,  "imagem": "banana.png",     "categoria": "Frutas" },
+    { "id": 6,  "nome": "Abacaxi Unidade",    "preco": 9.90,  "precoAntigo": 10.90, "imagem": "abacaxi.png",    "categoria": "Frutas" },
+    { "id": 7,  "nome": "Arroz 5kg",          "preco": 24.90, "precoAntigo": 27.90, "imagem": "arroz.jpg",      "categoria": "Mercearia" },
+    { "id": 8,  "nome": "Feijão 1kg",         "preco": 8.90,  "precoAntigo": 9.90,  "imagem": "feijao.jpg",     "categoria": "Mercearia" },
+    { "id": 9,  "nome": "Açúcar 1kg",         "preco": 4.50,  "precoAntigo": 5.50,  "imagem": "acucar.jpg",     "categoria": "Mercearia" },
+    { "id": 10, "nome": "Café 500g",          "preco": 14.90, "precoAntigo": 16.90, "imagem": "cafe.jpg",       "categoria": "Mercearia" },
+    { "id": 11, "nome": "Detergente 500ml",   "preco": 2.50,  "precoAntigo": 3.00,  "imagem": "detergente.jpg", "categoria": "Limpeza" },
+    { "id": 12, "nome": "Sabão em Pó 1kg",    "preco": 12.90, "precoAntigo": 14.90, "imagem": "sabao.jpg",      "categoria": "Limpeza" },
+    { "id": 13, "nome": "Desinfetante 1L",    "preco": 6.90,  "precoAntigo": 7.90,  "imagem": "desinfetante.jpg","categoria": "Limpeza" },
+    { "id": 14, "nome": "Queijo Mussarela Kg","preco": 39.90, "precoAntigo": 44.90, "imagem": "queijo.jpg",     "categoria": "Laticínios" },
+    { "id": 15, "nome": "Iogurte 170g",       "preco": 2.90,  "precoAntigo": 3.50,  "imagem": "iogurte.jpg",    "categoria": "Laticínios" },
+    { "id": 16, "nome": "Manteiga 200g",      "preco": 8.90,  "precoAntigo": 9.90,  "imagem": "manteiga.jpg",   "categoria": "Laticínios" },
+    { "id": 17, "nome": "Maçã Kg",            "preco": 6.90,  "precoAntigo": 7.90,  "imagem": "maca.jpg",       "categoria": "Frutas" },
+    { "id": 18, "nome": "Laranja Kg",         "preco": 3.90,  "precoAntigo": 4.90,  "imagem": "laranja.jpg",    "categoria": "Frutas" },
+    { "id": 19, "nome": "Alface Unidade",     "preco": 2.50,  "precoAntigo": 3.00,  "imagem": "alface.jpg",     "categoria": "Hortifruti" },
+    { "id": 20, "nome": "Tomate Kg",          "preco": 5.90,  "precoAntigo": 6.90,  "imagem": "tomate.jpg",     "categoria": "Hortifruti" }
+  ],
+  "usuarios": [
+    { "id": 1, "nome": "pedro", "email": "pedro@gmail", "password": "1234" },
+    { "id": 2, "nome": "alves", "email": "alves@gmail",  "password": "5678" },
+    { "id": 3, "nome": "vinicius", "email": "vinicius@gmail",  "password": "6967" }
+  ]
+}

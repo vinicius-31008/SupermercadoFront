@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Açaí Mart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="imagens/logo.png" alt="Logo Açaí Mart">
+      Açaí Mart
+    </div>
+
+    <div class="search">
+      <input
+        type="text"
+        placeholder="Buscar produtos..."
+        oninput="loja.buscar(this.value)"
+      />
+    </div>
+
+    <div class="header-actions">
+      <div id="area-usuario">
+        <a onclick="loja.abrirLogin()" style="cursor:pointer">Login</a>
+      </div>
+
+      <button class="btn-carrinho" onclick="loja.carrinho.abrir()">
+        <img src="imagens/carrinho.png" alt="Carrinho">
+        <span class="badge-carrinho" id="badge-carrinho" style="display:none">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="banner">
+        <h1>Ofertas<br>da Semana</h1>
+      </div>
+
+      <div class="filtros" id="filtros"></div>
+
+      <div class="products" id="products">
+        <p style="color:#fff; opacity:0.7">Carregando produtos...</p>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <h2>Contato</h2>
+      <div class="social">
+        <div>📘 @acaimart</div>
+        <div>📸 @acaimart</div>
+        <div>💬 (19) 99383-6952</div>
+      </div>
+      <div class="payment">
+        <strong>Formas de pagamento</strong><br>
+        Visa • Mastercard • Elo • Pix<br><br>
+        Rua Freire de Andrade, 685<br>
+        Parque Olaria
+      </div>
+    </aside>
+  </main>
+
+  <div class="carrinho-overlay" id="carrinho-overlay" onclick="loja.carrinho.fechar()"></div>
+
+  <div class="carrinho-drawer" id="carrinho-drawer">
+    <div class="carrinho-header">
+      <h2>🛒 Meu Carrinho</h2>
+      <button onclick="loja.carrinho.fechar()">✕</button>
+    </div>
+
+    <div class="carrinho-lista" id="carrinho-lista">
+      <p class="carrinho-vazio">Seu carrinho está vazio.</p>
+    </div>
+
+    <div class="carrinho-rodape">
+      <div class="carrinho-total">
+        <span>Total</span>
+        <span id="carrinho-total">R$ 0,00</span>
+      </div>
+      <button class="btn-finalizar" onclick="loja.carrinho.finalizar()">
+        Finalizar Compra
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== MODAL LOGIN ===== -->
+  <div class="modal-overlay" id="modal-login">
+    <div class="modal">
+      <h2>🔐 Login</h2>
+      <label>E-mail</label>
+      <input type="email" id="login-email" placeholder="seu@email.com" />
+      <label>Senha</label>
+      <input type="password" id="login-senha" placeholder="••••••" />
+      <p class="modal-erro" id="login-erro"></p>
+      <div class="modal-actions">
+        <button class="btn-login-cancelar" onclick="loja.login.fechar()">Cancelar</button>
+        <button class="btn-login-confirmar" onclick="loja.login.tentar()">Entrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>
