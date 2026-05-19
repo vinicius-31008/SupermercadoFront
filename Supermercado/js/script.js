@@ -1,4 +1,3 @@
-
 class Produto {
   constructor({ id, nome, preco, precoAntigo, imagem, categoria }) {
     this.id = id;

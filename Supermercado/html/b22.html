@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sala B22 – Açaí Mart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="imagens/logo.png" alt="Logo Açaí Mart">
+      Açaí Mart
+    </div>
+
+    <div class="search">
+      <input
+        type="text"
+        placeholder="Buscar itens da sala B22..."
+        oninput="b22Page.buscar(this.value)"
+      />
+    </div>
+
+    <div class="header-actions">
+      <a href="index.html">← Voltar à Loja</a>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="banner">
+        <h1>Sala<br>B22</h1>
+      </div>
+
+      <div class="filtros" id="filtros-b22"></div>
+
+      <div class="products" id="products-b22">
+        <p style="color:#fff; opacity:0.7">Carregando itens...</p>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <h2>Sobre a Sala</h2>
+      <div class="social">
+        <div>📦 Inventário B22</div>
+        <div>🔌 Equipamentos Técnicos</div>
+        <div>🛠️ Ferramentas & Acessórios</div>
+      </div>
+      <div class="payment">
+        <strong>Categorias disponíveis</strong><br>
+        Eletrônico • Elétrico<br>
+        Eletroeletrônico • Móveis<br>
+        Acessório • Armazenamento
+      </div>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    class ItemB22 {
+      constructor({ id, descricao, quantidade, categoria }) {
+        this.id = id;
+        this.descricao = descricao;
+        this.quantidade = quantidade;
+        this.categoria = categoria;
+      }
+
+      renderCard() {
+        return `
+          <div class="product b22-card" data-id="${this.id}" data-categoria="${this.categoria}">
+            <div class="b22-icon">${this._icone()}</div>
+            <h3>${this.descricao}</h3>
+            <div class="b22-categoria">${this.categoria}</div>
+            <div class="b22-quantidade">
+              <span class="b22-qtd-label">Quantidade</span>
+              <span class="b22-qtd-valor">${this.quantidade}</span>
+            </div>
+          </div>`;
+      }
+
+      _icone() {
+        const icons = {
+          'Eletrônico': '💻',
+          'Elétrico': '⚡',
+          'Eletroeletrônico': '🔌',
+          'Móveis': '🪑',
+          'Acessório': '🔧',
+          'Armazenamento de dados': '💾',
+          'Adorno': '🖥️',
+        };
+        return icons[this.categoria] || '📦';
+      }
+    }
+
+    const b22Page = {
+      itens: [],
+
+      async iniciar() {
+        try {
+          const resp = await fetch('JSON/db.json');
+          if (!resp.ok) throw new Error(`Erro: ${resp.statusText}`);
+          const dados = await resp.json();
+
+          this.itens = dados.b22.map(d => new ItemB22(d));
+          this._renderLista(this.itens);
+          this._renderFiltros();
+        } catch (e) {
+          console.error('Erro ao carregar dados:', e);
+          document.getElementById('products-b22').innerHTML =
+            '<p style="color:#fff; opacity:0.7">Erro ao carregar os itens. Tente novamente.</p>';
+        }
+      },
+
+      _renderLista(lista) {
+        document.getElementById('products-b22').innerHTML =
+          lista.map(i => i.renderCard()).join('');
+      },
+
+      _renderFiltros() {
+        const categorias = ['Todos', ...new Set(this.itens.map(i => i.categoria))];
+        const container = document.getElementById('filtros-b22');
+        container.innerHTML = categorias.map(c =>
+          `<button class="${c === 'Todos' ? 'ativo' : ''}" onclick="b22Page.filtrar('${c}', this)">${c}</button>`
+        ).join('');
+      },
+
+      filtrar(categoria, btnEl) {
+        document.querySelectorAll('#filtros-b22 button').forEach(b => b.classList.remove('ativo'));
+        btnEl.classList.add('ativo');
+
+        document.querySelectorAll('.b22-card').forEach(card => {
+          const match = categoria === 'Todos' || card.dataset.categoria === categoria;
+          card.classList.toggle('product-hidden', !match);
+        });
+      },
+
+      buscar(termo) {
+        const t = termo.toLowerCase();
+        document.querySelectorAll('.b22-card').forEach(card => {
+          const descricao = card.querySelector('h3').textContent.toLowerCase();
+          card.classList.toggle('product-hidden', !descricao.includes(t));
+        });
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => b22Page.iniciar());
+  </script>
+</body>
+</html>

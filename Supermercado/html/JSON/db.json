@@ -25,5 +25,198 @@
     { "id": 1, "nome": "pedro", "email": "pedro@gmail", "password": "1234" },
     { "id": 2, "nome": "alves", "email": "alves@gmail",  "password": "5678" },
     { "id": 3, "nome": "vinicius", "email": "vinicius@gmail",  "password": "6967" }
+  ], "b22": [
+    {
+    "id": 1,
+    "descricao": "Computador Dell para alunos e professores",
+    "quantidade": 9,
+    "categoria": "Eletrônico"
+    },
+    {
+      "id": 2,
+      "descricao": "Painel elétrico para energizar computadores e aparelhos eletrônicos de até 24V",
+      "quantidade": 8,
+      "categoria": "Eletroeletrônico"
+    },
+    {
+      "id": 3,
+      "descricao": "Display visual para os computadores",
+      "quantidade": 9,
+      "categoria": "Eletrônico"
+    },
+    {
+      "id": 4,
+      "descricao": "Painel eletrônico de banco de resistores",
+      "quantidade": 8,
+      "categoria": "Eletrônico"
+    },
+    {
+      "id": 5,
+      "descricao": "Transformador eletrônico",
+      "quantidade": 8,
+      "categoria": "Eletrônico"
+    },
+    {
+      "id": 6,
+      "descricao": "Não identificado",
+      "quantidade": 5,
+      "categoria": "Elétrico"
+    },
+    {
+      "id": 7,
+      "descricao": "Fonte regulável para eletrônicos",
+      "quantidade": 8,
+      "categoria": "Eletroeletrônico"
+    },
+    {
+      "id": 8,
+      "descricao": "Leitor de voltagem",
+      "quantidade": 8,
+      "categoria": "Eletrônico"
+    },
+    {
+      "id": 9,
+      "descricao": "Motor de três fases",
+      "quantidade": 5,
+      "categoria": "Elétrico"
+    },
+    {
+      "id": 10,
+      "descricao": "Transformador 110–220V",
+      "quantidade": 7,
+      "categoria": "Elétrico"
+    },
+    {
+      "id": 11,
+      "descricao": "Fonte 110–220V",
+      "quantidade": 1,
+      "categoria": "Elétrico"
+    },
+    {
+      "id": 12,
+      "descricao": "Motor de três fases",
+      "quantidade": 1,
+      "categoria": "Elétrico"
+    },
+    {
+      "id": 13,
+      "descricao": "Gabinete para computador",
+      "quantidade": 10,
+      "categoria": "Adorno"
+    },
+    {
+      "id": 14,
+      "descricao": "Localizado debaixo das bancadas",
+      "quantidade": 10,
+      "categoria": "Elétrico"
+    },
+    {
+      "id": 15,
+      "descricao": "Contator elétrico controlado por sinal eletrônico de até 660V e 10A, com múltiplas entradas e saídas de sinal",
+      "quantidade": 1,
+      "categoria": "Eletroeletrônico"
+    },
+    {
+      "id": 16,
+      "descricao": "Contator de média potência, até 220V",
+      "quantidade": 1,
+      "categoria": "Elétrico"
+    },
+    {
+      "id": 17,
+      "descricao": "Disjuntor de um único polo",
+      "quantidade": 1,
+      "categoria": "Elétrico"
+    },
+    {
+      "id": 18,
+      "descricao": "Disjuntor de dois polos",
+      "quantidade": 2,
+      "categoria": "Elétrico"
+    },
+    {
+      "id": 19,
+      "descricao": "Disjuntor para motores",
+      "quantidade": 1,
+      "categoria": "Eletrônico"
+    },
+    {
+      "id": 20,
+      "descricao": "Fonte de 120V para 24V",
+      "quantidade": 1,
+      "categoria": "Eletrônico"
+    },
+    {
+      "id": 21,
+      "descricao": "Variador de tensão de alta capacidade",
+      "quantidade": 1,
+      "categoria": "Elétrico"
+    },
+    {
+      "id": 22,
+      "descricao": "Disjuntor de três polos",
+      "quantidade": 1,
+      "categoria": "Elétrico"
+    },
+    {
+      "id": 23,
+      "descricao": "Terminal metálico de 2 mm",
+      "quantidade": 39,
+      "categoria": "Acessório"
+    },
+    {
+      "id": 24,
+      "descricao": "CLP para painéis de controle",
+      "quantidade": 1,
+      "categoria": "Eletrônico"
+    },
+    {
+      "id": 26,
+      "descricao": "Chave Phillips",
+      "quantidade": 4,
+      "categoria": "Acessório"
+    },
+    {
+      "id": 27,
+      "descricao": "Fita de backup para demonstração",
+      "quantidade": 1,
+      "categoria": "Armazenamento de dados"
+    },
+    {
+      "id": 28,
+      "descricao": "Serra dentada manual",
+      "quantidade": 1,
+      "categoria": "Acessório"
+    },
+    {
+      "id": 29,
+      "descricao": "Alicate de pressão com trava",
+      "quantidade": 1,
+      "categoria": "Acessório"
+    },
+    {
+      "id": 30,
+      "descricao": "Cadeiras para alunos ou professores",
+      "quantidade": 17,
+      "categoria": "Móveis"
+    },
+    {
+      "id": 31,
+      "descricao": "Fita métrica de 3 metros",
+      "quantidade": 1,
+      "categoria": "Acessório"
+    },
+    {
+      "id": 32,
+      "descricao": "Lixa de metal manual",
+      "quantidade": 1,
+      "categoria": "Acessório"
+    },
+    {
+      "id": 33,
+      "descricao": "Projetor de sala",
+      "quantidade": 1,
+      "categoria": "Eletrônico"
+    }
   ]
 }

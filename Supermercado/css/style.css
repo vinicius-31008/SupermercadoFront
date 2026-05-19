@@ -560,6 +560,73 @@ main {
   opacity: 1;
 }
 
+/* ===== BOTÃO B22 NO HEADER ===== */
+.btn-b22 {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: var(--branco);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.btn-b22:hover {
+  background: rgba(255,255,255,0.35);
+}
+
+/* ===== CARDS B22 ===== */
+.b22-card {
+  align-items: center;
+}
+
+.b22-icon {
+  font-size: 42px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.b22-card h3 {
+  font-size: 13px;
+  color: var(--cinza-texto);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.b22-categoria {
+  font-size: 11px;
+  background: var(--roxo-claro);
+  color: var(--branco);
+  border-radius: 20px;
+  padding: 3px 10px;
+  margin-top: 2px;
+}
+
+.b22-quantidade {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: var(--cinza-claro);
+  border-radius: 10px;
+  padding: 6px 12px;
+}
+
+.b22-qtd-label {
+  font-size: 12px;
+  color: #777;
+}
+
+.b22-qtd-valor {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--roxo-escuro);
+}
+
 /* ===== RESPONSIVO ===== */
 @media (max-width: 900px) {
   main {
