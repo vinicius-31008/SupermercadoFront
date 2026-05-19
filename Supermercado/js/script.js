@@ -53,7 +53,7 @@ class Produto {
   renderCard() {
     const emPromocao = verificarPromocaoRelampago();
     const badgeHTML  = emPromocao
-      ? `<div class="badge-relampago">⚡ -R$ 1,00</div>`
+      ? `<div class="badge-relampago"> -R$ 1,00</div>`
       : "";
     const precoDeHTML = emPromocao
       ? `<div class="old-price">De ${this.precoAntigoFormatado()} → <s>${this.precoOriginal.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}</s></div>`
@@ -298,7 +298,7 @@ class Loja {
     const banner = document.createElement("div");
     banner.id = "banner-relampago";
     banner.innerHTML = `
-      <span class="relampago-icone">⚡</span>
+      <span class="relampago-icone"></span>
       <span class="relampago-texto">PROMOÇÃO RELÂMPAGO — R$ 1,00 OFF EM TODOS OS PRODUTOS!</span>
       <span class="relampago-timer" id="relampago-timer"></span>
     `;
