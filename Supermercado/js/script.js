@@ -1,11 +1,45 @@
+
+const PROMOCAO_DESCONTO = 1.00; 
+
+function verificarPromocaoRelampago() {
+  const agora = new Date();
+  const hora  = agora.getHours(); 
+  return hora >= 15 && hora < 17; 
+}
+
+function horasAteProxima() {
+  const agora = new Date();
+  const hora  = agora.getHours();
+  const min   = agora.getMinutes();
+  const seg   = agora.getSeconds();
+
+  if (hora >= 15 && hora < 17) {
+    
+    const restaSeg = (17 - hora - 1) * 3600 + (59 - min) * 60 + (60 - seg);
+    return { ativa: true, restaSeg };
+  }
+  return { ativa: false, restaSeg: 0 };
+}
+
+
+
 class Produto {
   constructor({ id, nome, preco, precoAntigo, imagem, categoria }) {
     this.id = id;
     this.nome = nome;
-    this.preco = preco;
+    this.precoOriginal = preco;      
+    this.preco = preco;             
     this.precoAntigo = precoAntigo;
     this.imagem = imagem;
     this.categoria = categoria;
+  }
+
+  aplicarDesconto(desconto) {
+    this.preco = Math.max(0, this.precoOriginal - desconto);
+  }
+
+  removerDesconto() {
+    this.preco = this.precoOriginal;
   }
 
   precoFormatado() {
@@ -17,11 +51,20 @@ class Produto {
   }
 
   renderCard() {
+    const emPromocao = verificarPromocaoRelampago();
+    const badgeHTML  = emPromocao
+      ? `<div class="badge-relampago">⚡ -R$ 1,00</div>`
+      : "";
+    const precoDeHTML = emPromocao
+      ? `<div class="old-price">De ${this.precoAntigoFormatado()} → <s>${this.precoOriginal.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}</s></div>`
+      : `<div class="old-price">De ${this.precoAntigoFormatado()}</div>`;
+
     return `
-      <div class="product" data-id="${this.id}" data-categoria="${this.categoria}">
+      <div class="product${emPromocao ? " em-promocao" : ""}" data-id="${this.id}" data-categoria="${this.categoria}">
+        ${badgeHTML}
         <img src="imagens/${this.imagem}" alt="${this.nome}">
         <h3>${this.nome}</h3>
-        <div class="old-price">De ${this.precoAntigoFormatado()}</div>
+        ${precoDeHTML}
         <div class="price">${this.precoFormatado()}</div>
         <button onclick="loja.carrinho.adicionar(${this.id})">
           🛒 Adicionar ao carrinho
@@ -215,7 +258,6 @@ class Loja {
 
   async iniciar() {
   try {
-    // Acessa o db.json usando o caminho relativo correto
     const resp = await fetch("JSON/db.json");
     
     if (!resp.ok) {
@@ -223,24 +265,87 @@ class Loja {
     }
 
     const dados = await resp.json();
-    console.log(dados);  // Verifique os dados no console
 
     if (!dados.produtos || !dados.usuarios) {
       throw new Error("Estrutura de dados incorreta no JSON.");
     }
 
-    // Atualiza os produtos e usuários
     this.catalogo = dados.produtos.map(d => new Produto(d));
     this.usuarios = dados.usuarios;
 
-    // Renderiza os produtos
+    if (verificarPromocaoRelampago()) {
+      this.catalogo.forEach(p => p.aplicarDesconto(PROMOCAO_DESCONTO));
+    }
+
     this._renderCatalogo(this.catalogo);
     this._renderFiltros();
+    this._iniciarBannerPromocao();  
+    this._agendarVerificacaoHoraria();
   } catch (e) {
     console.error("Erro ao carregar dados:", e);
     loja.toast("Erro ao carregar os dados. Tente novamente.");
   }
 }
+
+  _iniciarBannerPromocao() {
+    const { ativa, restaSeg } = horasAteProxima();
+
+    const anterior = document.getElementById("banner-relampago");
+    if (anterior) anterior.remove();
+
+    if (!ativa) return;
+
+    const banner = document.createElement("div");
+    banner.id = "banner-relampago";
+    banner.innerHTML = `
+      <span class="relampago-icone">⚡</span>
+      <span class="relampago-texto">PROMOÇÃO RELÂMPAGO — R$ 1,00 OFF EM TODOS OS PRODUTOS!</span>
+      <span class="relampago-timer" id="relampago-timer"></span>
+    `;
+    
+    document.querySelector("main").insertAdjacentElement("beforebegin", banner);
+
+    let seg = restaSeg;
+    const timerEl = document.getElementById("relampago-timer");
+
+    const tick = () => {
+      if (seg <= 0) {
+        banner.remove();
+        
+        this.catalogo.forEach(p => p.removerDesconto());
+        this._renderCatalogo(this.catalogo);
+        this.toast("Promoção relâmpago encerrada!");
+        return;
+      }
+      const h = Math.floor(seg / 3600);
+      const m = Math.floor((seg % 3600) / 60);
+      const s = seg % 60;
+      timerEl.textContent = `Termina em: ${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+      seg--;
+      setTimeout(tick, 1000);
+    };
+    tick();
+  }
+
+  _agendarVerificacaoHoraria() {
+    setInterval(() => {
+      const ativa = verificarPromocaoRelampago();
+      const bannerExiste = !!document.getElementById("banner-relampago");
+
+      if (ativa && !bannerExiste) {
+        
+        this.catalogo.forEach(p => p.aplicarDesconto(PROMOCAO_DESCONTO));
+        this._renderCatalogo(this.catalogo);
+        this._iniciarBannerPromocao();
+        this.toast("⚡ Promoção relâmpago ativada! R$ 1,00 OFF em tudo!");
+      } else if (!ativa && bannerExiste) {
+        
+        this.catalogo.forEach(p => p.removerDesconto());
+        this._renderCatalogo(this.catalogo);
+        document.getElementById("banner-relampago")?.remove();
+      }
+    }, 60_000); 
+  }
 
   autenticarUsuario(email, senha) {
     return this.usuarios.find(u => u.email === email && u.senha === senha);
