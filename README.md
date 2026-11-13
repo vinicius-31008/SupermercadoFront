@@ -1,89 +1,123 @@
 # Açaí Mart — SupermercadoFront
 
-Exercício de front-end (SENAI) que simula a loja virtual de um supermercado, com catálogo de produtos, carrinho de compras, login de usuário e uma promoção-relâmpago dinâmica. Construído em **HTML, CSS e JavaScript puro (vanilla)**, sem frameworks ou bibliotecas externas.
+Exercício de front-end (SENAI) que simula a loja virtual de um supermercado, com catálogo de produtos, carrinho de compras, login de usuário e uma promoção-relâmpago dinâmica. Construído em **HTML, CSS e JavaScript puro (vanilla)**, sem frameworks.
+
+![Página inicial da loja](docs/screenshots/loja.png)
+
+## Telas
+
+| Carrinho | Sala B22 |
+|----------|----------|
+| ![Carrinho de compras aberto](docs/screenshots/carrinho.png) | ![Inventário da Sala B22](docs/screenshots/sala-b22.png) |
+
+| Celular | Tema escuro |
+|---------|-------------|
+| <img src="docs/screenshots/mobile.png" alt="Loja no celular" width="300"> | ![Loja no tema escuro](docs/screenshots/tema-escuro.png) |
 
 ## Funcionalidades
 
-- **Catálogo de produtos** carregado dinamicamente a partir de um arquivo JSON (`db.json`), com preço atual, preço antigo, imagem e categoria.
-- **Filtro por categoria** (Mercearia, Limpeza, Laticínios, Frutas, Hortifruti, etc.), gerado automaticamente a partir dos dados.
-- **Busca em tempo real** por nome do produto.
-- **Carrinho de compras** em painel lateral (drawer), com:
-  - adicionar / remover itens;
-  - incrementar / decrementar quantidade;
-  - cálculo automático de subtotal e total;
-  - finalização de compra (exige login).
-- **Login de usuário** via modal, validado contra uma lista de usuários no próprio JSON.
-- **Promoção-relâmpago automática**: das 15h às 17h, todos os produtos recebem R$ 1,00 de desconto, com banner e cronômetro regressivo até o fim da promoção, atualizados em tempo real.
-- **Página extra "Sala B22"** (`b22.html`): um inventário separado de equipamentos/itens de sala de aula, com os mesmos recursos de filtro e busca do catálogo principal.
-- **Notificações "toast"** para feedback de ações (produto adicionado, login inválido, etc.).
+- **Catálogo de produtos** carregado dinamicamente a partir de um arquivo JSON (`db.json`), com preço atual, preço antigo, selo de % de desconto, imagem e categoria.
+- **Filtro por categoria** (com contagem de itens), **busca em tempo real** (ignora acentos: "acucar" encontra "Açúcar") e **ordenação** (menor/maior preço, maior desconto, nome). Filtro, busca e ordenação funcionam em conjunto.
+- **Carrinho de compras** em painel lateral, com:
+  - adicionar / remover itens, direto do card ou pelo carrinho;
+  - seletor de quantidade no próprio card do produto;
+  - subtotal, valor economizado e total;
+  - carrinho **salvo no navegador** (`localStorage`) — continua lá ao recarregar a página;
+  - finalização de compra (exige login) com tela de confirmação.
+- **Login de usuário** via modal (Enter envia, Esc ou clique fora fecha), validado contra a lista de usuários do JSON. A sessão dura enquanto a aba estiver aberta (`sessionStorage`).
+- **Promoção-relâmpago automática**: das 15h às 17h, todos os produtos recebem R$ 1,00 de desconto, com faixa no topo e cronômetro regressivo. Ela liga e desliga sozinha, atualizando vitrine e carrinho.
+- **Página "Sala B22"** (`b22.html`): inventário de equipamentos da sala, com resumo (itens, unidades, categorias), gráfico de unidades por categoria, filtros e busca.
+- **Tema claro/escuro automático** (segue a preferência do sistema), layout responsivo e respeito a `prefers-reduced-motion`.
+- **Notificações "toast"** para feedback das ações.
 
 ## Tecnologias
 
-- **HTML5**
-- **CSS3**
-- **JavaScript (ES6+)** — Classes, `fetch`, `async/await`, manipulação de DOM
-- **JSON** como fonte de dados (sem backend/servidor)
+- **HTML5** semântico, com atributos de acessibilidade (ARIA, foco visível)
+- **CSS3** — variáveis (design tokens), Grid, Flexbox, media queries
+- **JavaScript (ES6+)** — Classes, `fetch`, `async/await`, delegação de eventos, Web Storage
+- **JSON** como fonte de dados (sem backend)
+- Fonte [Poppins](https://fonts.google.com/specimen/Poppins) via Google Fonts (com fallback para fontes do sistema)
 
-Não há dependências, build step ou instalação de pacotes: é um projeto 100% estático.
+Não há build step nem instalação de pacotes: é um projeto 100% estático.
 
 ## Estrutura do projeto
 
 ```
-Supermercado/
+SupermercadoFront/
 ├── html/
-│   ├── index.html          # Página principal da loja
-│   ├── b22.html             # Página do inventário da Sala B22
-│   ├── imagens/              # Imagens dos produtos, logo e ícones
+│   ├── index.html        # Loja principal
+│   ├── b22.html          # Inventário da Sala B22
+│   ├── imagens/          # Imagens dos produtos e logo
 │   └── JSON/
-│       └── db.json           # Dados: produtos, usuários e itens da Sala B22
+│       └── db.json       # Dados: produtos, usuários e itens da Sala B22
 ├── css/
-│   └── style.css             # Estilos de toda a aplicação
-└── js/
-    └── script.js              # Lógica da loja: catálogo, carrinho, login, promoção
+│   └── style.css         # Estilos de toda a aplicação
+├── js/
+│   ├── utils.js          # Funções compartilhadas (moeda, busca, toast, storage)
+│   ├── script.js         # Loja: catálogo, carrinho, login, promoção
+│   └── b22.js            # Página da Sala B22
+└── docs/
+    └── screenshots/      # Capturas de tela usadas neste README
 ```
 
 ## Como executar
 
-Por ser um projeto estático (HTML/CSS/JS), basta abrir o `index.html` no navegador. Como o app carrega dados via `fetch("JSON/db.json")`, alguns navegadores bloqueiam essa leitura quando o arquivo é aberto direto do disco (`file://`) — por isso o recomendado é servir os arquivos com um servidor local:
+Como o app carrega dados via `fetch("JSON/db.json")`, os navegadores bloqueiam essa leitura quando o arquivo é aberto direto do disco (`file://`). Use um servidor local:
 
 **Opção 1 — VS Code Live Server**
 1. Abra a pasta do projeto no VS Code.
-2. Clique com o botão direito em `Supermercado/html/index.html`.
+2. Clique com o botão direito em `html/index.html`.
 3. Selecione **"Open with Live Server"**.
 
-**Opção 2 — servidor HTTP simples (Python)**
+**Opção 2 — Python** (a partir da raiz do projeto, para que `../css` e `../js` funcionem)
 ```bash
-cd Supermercado/html
-python3 -m http.server 5500
+python -m http.server 5500
 ```
-Depois acesse `http://localhost:5500` no navegador.
+Acesse `http://localhost:5500/html/index.html`.
 
-**Opção 3 — servidor HTTP simples (Node.js)**
+**Opção 3 — Node.js**
 ```bash
-cd Supermercado/html
-npx serve
+npx serve .
 ```
+Acesse `/html/index.html` no endereço exibido.
+
+### Testando a promoção fora do horário
+
+Abra a loja com `?promo=on` no final da URL (ex.: `http://localhost:5500/html/index.html?promo=on`) para forçar a promoção-relâmpago por 2 horas a partir do carregamento.
 
 ## Usuários de teste
 
-Para testar o login e a finalização de compra, use um dos usuários cadastrados em `db.json`:
-
-| Nome     | E-mail            | Senha |
-|----------|--------------------|-------|
-| pedro    | pedro@gmail        | 1234  |
-| alves    | alves@gmail        | 5678  |
-| vinicius | vinicius@gmail     | 6967  |
-
-## Páginas
-
-- **`index.html`** — loja principal: catálogo, busca, filtros, carrinho e login.
-- **`b22.html`** — inventário da Sala B22, com filtros por categoria e busca, acessível pelo botão "Sala B22" no cabeçalho da loja.
+| Nome     | E-mail          | Senha |
+|----------|-----------------|-------|
+| pedro    | pedro@gmail     | 1234  |
+| alves    | alves@gmail     | 5678  |
+| vinicius | vinicius@gmail  | 6967  |
 
 ## Observações
 
-- Todo o estado (carrinho, login, promoção) vive em memória no navegador; ao recarregar a página, o carrinho é reiniciado.
-- Não há persistência em banco de dados nem back-end: o `db.json` funciona como uma "API estática" local.
+- Não há back-end: o `db.json` funciona como uma "API estática" local, e o login é apenas uma simulação (as senhas ficam visíveis no JSON).
 - A promoção-relâmpago depende do horário do sistema do navegador (15h–17h).
+
+## Histórico de alterações
+
+### Repaginada (novembro de 2026)
+
+**Correções**
+- Filtro de categoria e busca não se sobrescrevem mais: os dois (e a ordenação) agora se combinam.
+- Promoção-relâmpago reescrita com um único relógio: não duplica cronômetros, não atrasa com a aba em segundo plano, mantém o filtro ativo ao ligar/desligar e atualiza os preços do carrinho.
+- Login: corrigido o campo de senha usado na autenticação, Enter envia o formulário, Esc/clique fora fecha o modal.
+- Erro ao carregar o JSON agora mostra uma mensagem em vez de "Carregando..." para sempre.
+- Busca ignora acentos e exibe aviso quando nada é encontrado.
+- Ícone da faixa da promoção restaurado.
+
+**Melhorias**
+- Novo visual: tokens de cor, fonte Poppins, ícones SVG, tema escuro automático e layout responsivo.
+- Ordenação de produtos, contagem por categoria e selo de % de desconto nos cards.
+- Seletor de quantidade direto no card do produto.
+- Carrinho com resumo de economia e salvo no navegador; tela de confirmação no lugar do `alert()`.
+- Sala B22 com resumo do inventário e gráfico de unidades por categoria; script movido para `js/b22.js`.
+- Código compartilhado extraído para `js/utils.js`; eventos sem `onclick` inline.
+- Acessibilidade: botões reais em vez de links sem `href`, rótulos ARIA, foco visível e suporte a `prefers-reduced-motion`.
 
 ## Autor
 

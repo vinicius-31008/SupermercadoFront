@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sala B22 — Açaí Mart</title>
+  <meta name="description" content="Inventário de equipamentos e acessórios da Sala B22." />
+  <meta name="theme-color" content="#6a1b9a" />
+  <link rel="icon" href="imagens/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-busca" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-voltar" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+    <symbol id="i-caixa" viewBox="0 0 24 24"><path d="m21 8-9-5-9 5 9 5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></symbol>
+    <symbol id="i-camadas" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+    <symbol id="i-lista" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></symbol>
+  </svg>
+
+  <header class="topo">
+    <div class="topo-conteudo">
+      <a href="index.html" class="logo" aria-label="Açaí Mart — página inicial">
+        <span class="logo-img"><img src="imagens/logo.png" alt="" /></span>
+        <span class="logo-texto">Açaí<b>Mart</b></span>
+      </a>
+
+      <label class="busca">
+        <svg class="icone"><use href="#i-busca"/></svg>
+        <span class="sr-only">Buscar itens da sala B22</span>
+        <input type="search" id="busca-b22" placeholder="Buscar itens da sala B22…" autocomplete="off" />
+      </label>
+
+      <nav class="topo-acoes" aria-label="Ações">
+        <a href="index.html" class="btn-topo">
+          <svg class="icone"><use href="#i-voltar"/></svg>
+          <span>Voltar à loja</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="conteudo">
+      <div class="hero hero-b22">
+        <div class="hero-texto">
+          <span class="hero-selo">Inventário</span>
+          <h1>Sala B22</h1>
+          <p>Equipamentos técnicos, ferramentas e acessórios disponíveis no laboratório.</p>
+        </div>
+        <div class="estatisticas" aria-label="Resumo do inventário">
+          <div class="estatistica">
+            <svg class="icone"><use href="#i-lista"/></svg>
+            <strong id="stat-itens">—</strong><span>itens</span>
+          </div>
+          <div class="estatistica">
+            <svg class="icone"><use href="#i-caixa"/></svg>
+            <strong id="stat-unidades">—</strong><span>unidades</span>
+          </div>
+          <div class="estatistica">
+            <svg class="icone"><use href="#i-camadas"/></svg>
+            <strong id="stat-categorias">—</strong><span>categorias</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="barra-ferramentas">
+        <div class="filtros" id="filtros-b22" role="toolbar" aria-label="Filtrar por categoria"></div>
+      </div>
+
+      <p class="contagem" id="contagem-b22" aria-live="polite"></p>
+
+      <div class="grade grade-b22" id="itens-b22">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+    </section>
+
+    <aside class="lateral">
+      <div class="cartao-lateral">
+        <h2>Sobre a sala</h2>
+        <ul class="lista-contato">
+          <li><span class="emoji" aria-hidden="true">📦</span> Inventário B22</li>
+          <li><span class="emoji" aria-hidden="true">🔌</span> Equipamentos técnicos</li>
+          <li><span class="emoji" aria-hidden="true">🛠️</span> Ferramentas &amp; acessórios</li>
+        </ul>
+      </div>
+
+      <div class="cartao-lateral">
+        <h2>Unidades por categoria</h2>
+        <ul class="barras" id="resumo-categorias"></ul>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="rodape">
+    <p>© <span id="ano"></span> Açaí Mart · Projeto acadêmico SENAI</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/b22.js"></script>
+</body>
+</html>
